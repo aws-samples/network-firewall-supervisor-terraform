@@ -2,14 +2,6 @@
    SPDX-License-Identifier: MIT-0 */
 
 ###################### Example Stateful Rule Group ######################
-
-# Sharing stateful rule group to organization using RAM
-resource "aws_ram_resource_association" "stateful_rule_group_assoc" {
-  resource_arn       = aws_networkfirewall_rule_group.deny_all.arn
-  resource_share_arn = module.nf_supervisor.ram_share_arn
-}
-
-# Stateful firewall rule group, with strict ordering, that denies all traffic
 resource "aws_networkfirewall_rule_group" "deny_all" {
   name     = "deny-all"
   type     = "STATEFUL"
@@ -35,6 +27,11 @@ resource "aws_networkfirewall_rule_group" "deny_all" {
       rule_order = "STRICT_ORDER"
     }
   }
+}
+
+resource "aws_ram_resource_association" "stateful_share_default_deny" {
+  resource_arn       = aws_networkfirewall_rule_group.deny_all.arn
+  resource_share_arn = module.nf_supervisor.ram_share_arn
 }
 
 

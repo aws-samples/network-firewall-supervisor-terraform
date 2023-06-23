@@ -3,7 +3,20 @@
 
 locals {
   rule_group_mappings = {
-    "/Root" = {
+    "/Root/qa" = {
+      "all_accounts" = {
+        "baseline_only" = "true"
+        "strict_order"  = "true"
+        "STATEFUL" = {
+          "${aws_networkfirewall_rule_group.deny_all.arn}" = 20
+        },
+        "STATELESS" = {
+          "${aws_networkfirewall_rule_group.allow_https.arn}" = 200
+        }
+      }
+    },
+
+    "/Root/production" = {
       "all_accounts" = {
         "baseline_only" = "true"
         "strict_order"  = "true"
@@ -14,15 +27,12 @@ locals {
           "${aws_networkfirewall_rule_group.allow_https.arn}" = 200
         }
       },
-      "12345678910" = {
+      "12345678911" = {
         "baseline_only" = "true"
-        "strict_order"  = "true"
-        "STATEFUL" = {
-          "${aws_networkfirewall_rule_group.deny_all.arn}" = 10
-        },
-        "STATELESS" = {
-          "${aws_networkfirewall_rule_group.allow_https.arn}" = 100
-        }
+        "strict_order"  = "false"
+        "STATEFUL" = [
+          "${aws_networkfirewall_rule_group.deny_all.arn}"
+        ]
       }
     }
   }

@@ -101,7 +101,7 @@ resource "aws_ram_resource_association" "stateful_rule_group_assoc" {
 <pre>
 <b>&lt;Target OU path&gt;</b> {
     <b>&lt;Target Account Id&gt; <span style="color:red">|</span> "all_accounts"</b> {
-        <b>baseline_only</b> = "true" <b><span style="color:red">|</span></b> "false"
+        <b>baseline_plus</b> = "true" <b><span style="color:red">|</span></b> "false"
         <b>strict_order</b> = "true" <b><span style="color:red">|</span></b> "false"
         <b>Stateful Rule Groups</b> = { &lt;rule group ARN&gt; = &lt;priority&gt; } <b><span style="color:red">|</span></b> [ &lt;rule group ARN&gt; ]
         <b>Stateless Rule Groups</b> = { &lt;rule group ARN&gt; = &lt;priority&gt; }
@@ -124,7 +124,7 @@ locals {
 
     "/Root/qa" = {
       "all_accounts" = {
-        "baseline_only" = "true"
+        "baseline_plus" = "true"
         "strict_order"  = "true"
         "STATEFUL" = {
           "${aws_networkfirewall_rule_group.deny_all.arn}" = 20
@@ -137,7 +137,7 @@ locals {
 
     "/Root/production" = {
       "all_accounts" = {
-        "baseline_only" = "true"
+        "baseline_plus" = "true"
         "strict_order"  = "true"
         "STATEFUL" = {
           "${aws_networkfirewall_rule_group.deny_all.arn}" = 20
@@ -147,7 +147,7 @@ locals {
         }
       },
       "12345678911" = {
-        "baseline_only" = "true"
+        "baseline_plus" = "true"
         "strict_order"  = "false"
         "STATEFUL" = [
           "${aws_networkfirewall_rule_group.deny_all.arn}"

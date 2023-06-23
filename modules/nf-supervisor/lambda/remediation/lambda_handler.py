@@ -545,8 +545,8 @@ def handler(event, context):
     raw_rule_group_mapping = get_rule_group_mapping(ssm_client, spoke_ou_path, account_id)
 
     # Reads whether or not to enforce baselines only, then removing from rule group mapping
-    baseline_only = raw_rule_group_mapping["baseline_only"]
-    del raw_rule_group_mapping["baseline_only"]
+    baseline_plus = raw_rule_group_mapping["baseline_plus"]
+    del raw_rule_group_mapping["baseline_plus"]
 
     # Reads whether or not to enforce strict order, then removing from rule group mapping
     strict_order = raw_rule_group_mapping["strict_order"]
@@ -559,7 +559,7 @@ def handler(event, context):
     policy_list = spoke_anf_client.list_firewall_policies()["FirewallPolicies"]
 
     # Remediating all firewall policies
-    if baseline_only == "true":
+    if baseline_plus == "true":
         modified_resources = remediate_baseline_rule_groups(
             event,
             policy_list,

@@ -236,7 +236,7 @@ def evaluate_baseline_rule_groups(policy_list, strict_order, rule_group_mapping,
 
 def evaluate_all_rule_groups(policy_list, strict_order, rule_group_mapping, spoke_anf_client):
     """
-    If: BASELINE_ONLY = false
+    If: baseline_plus = false
     Evaluates compliance of policies in the account, checks if excess rule groups are attached to a policy that are not centrally defined
 
     Parameters:
@@ -384,8 +384,8 @@ def handler(event, context):
     raw_rule_group_mapping = get_rule_group_mapping(ssm_client, spoke_ou_path, account_id)
 
     # Reads whether or not to enforce baselines only, then removing from rule group mapping
-    baseline_only = raw_rule_group_mapping["baseline_only"]
-    del raw_rule_group_mapping["baseline_only"]
+    baseline_plus = raw_rule_group_mapping["baseline_plus"]
+    del raw_rule_group_mapping["baseline_plus"]
 
     # Reads whether or not to enforce strict order, then removing from rule group mapping
     strict_order = raw_rule_group_mapping["strict_order"]
@@ -398,7 +398,7 @@ def handler(event, context):
     policy_list = spoke_anf_client.list_firewall_policies()["FirewallPolicies"]
 
     # Evaluating all firewall policies
-    if baseline_only == "true":
+    if baseline_plus == "true":
         results = evaluate_baseline_rule_groups(
             policy_list, strict_order, processed_rule_group_mapping, spoke_anf_client
         )
