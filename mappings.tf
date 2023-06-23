@@ -5,7 +5,7 @@ locals {
   rule_group_mappings = {
     "/Root/qa" = {
       "all_accounts" = {
-        "baseline_only" = "true"
+        "baseline_plus" = "true"
         "strict_order"  = "true"
         "STATEFUL" = {
           "${aws_networkfirewall_rule_group.deny_all.arn}" = 20
@@ -18,7 +18,7 @@ locals {
 
     "/Root/production" = {
       "all_accounts" = {
-        "baseline_only" = "true"
+        "baseline_plus" = "true"
         "strict_order"  = "true"
         "STATEFUL" = {
           "${aws_networkfirewall_rule_group.deny_all.arn}" = 20
@@ -28,7 +28,7 @@ locals {
         }
       },
       "12345678911" = {
-        "baseline_only" = "true"
+        "baseline_plus" = "true"
         "strict_order"  = "false"
         "STATEFUL" = [
           "${aws_networkfirewall_rule_group.deny_all.arn}"
