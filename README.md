@@ -44,7 +44,7 @@ Evaluations of firewall policies occur on the following basis:
 
 ## Remediation
 Once the evaluation has completed, AWS Config then (optionally) remediates the non-compliant firewalls. When defining the baseline rule groups, there are two configurable options that control what the tool remediates:
-- **Baseline only**:
+- **Baseline plus**:
   - *"true"*:
     - Add baseline rule groups to all firewall policies in target account
     - If strict order is enabled, reprioritise rule groups to ensure baseline rule groups are always evaluated first
